@@ -2,19 +2,16 @@ const inquirer = require('inquirer');
 const { Client } = require('pg');
 const cTable = require('console.table');
 
-// Database connection configuration
 const dbConfig = {
-  user: 'postgres',  // Update this if your username is different
+  user: 'postgres',  
   host: 'localhost',
   database: 'employee_tracker',
-  password: 'Xyauchiha667',  // Replace with your actual password
+  password: 'happy', 
   port: 5432,
 };
 
-// Connect to the database
 const client = new Client(dbConfig);
 
-// Main menu options
 const menuChoices = [
   'View all departments',
   'View all roles',
@@ -26,7 +23,6 @@ const menuChoices = [
   'Exit'
 ];
 
-// Main application function
 async function runApp() {
   try {
     await client.connect();
@@ -77,13 +73,11 @@ async function runApp() {
   }
 }
 
-// Function to view all departments
 async function viewAllDepartments() {
   const result = await client.query('SELECT * FROM department');
   console.table(result.rows);
 }
 
-// Function to view all roles
 async function viewAllRoles() {
   const query = `
     SELECT role.id, role.title, department.name AS department, role.salary 
@@ -94,7 +88,6 @@ async function viewAllRoles() {
   console.table(result.rows);
 }
 
-// Function to view all employees
 async function viewAllEmployees() {
   const query = `
     SELECT 
@@ -114,7 +107,6 @@ async function viewAllEmployees() {
   console.table(result.rows);
 }
 
-// Function to add a department
 async function addDepartment() {
   const { name } = await inquirer.prompt([
     {
@@ -128,7 +120,6 @@ async function addDepartment() {
   console.log(`Added department: ${name}`);
 }
 
-// Function to add a role
 async function addRole() {
   const departments = await client.query('SELECT * FROM department');
   
@@ -155,7 +146,6 @@ async function addRole() {
   console.log(`Added role: ${title}`);
 }
 
-// Function to add an employee
 async function addEmployee() {
   const roles = await client.query('SELECT * FROM role');
   const employees = await client.query('SELECT * FROM employee');
@@ -192,7 +182,6 @@ async function addEmployee() {
   console.log(`Added employee: ${firstName} ${lastName}`);
 }
 
-// Function to update an employee's role
 async function updateEmployeeRole() {
   const employees = await client.query('SELECT * FROM employee');
   const roles = await client.query('SELECT * FROM role');
@@ -216,5 +205,4 @@ async function updateEmployeeRole() {
   console.log(`Updated employee's role`);
 }
 
-// Run the application
 runApp().catch(console.error);

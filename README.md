@@ -41,9 +41,9 @@ SQL Employee Tracker is a command-line application for business owners to view a
 - pg (node-postgres) package
 
 
-## Tests
+## Demonstration video
 
-
+https://github.com/user-attachments/assets/e7be9bc7-d0fc-4c83-a18c-1524d385ad57
 
 ## Questions
 
